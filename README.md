@@ -1,7 +1,10 @@
 # NetworkAnalysis
 # Project Description: use network analysis capabilities in R to understand/ discover how originally defined group of subject matter experts (SMEs) is performing. For that purpose gathered were two datasets: 1st) 1 month before the group was set up, 2nd) 4 months from the set up date. Data represents emails echange streams within SME groups and between indivuduals external to the SMEs group. Data visualization (network) waas used to present changes that happened to the originally defined group. 
 
-# status in progress
+# Data use: there will be two data sets to compare
+
+* status in progress *
+* second data set collected
 
 # R code # 
 ---
@@ -12,7 +15,7 @@ output:
   html_notebook: default
   html_document: default
 ---
-
+# set proper pdf encoding
 ```{r, echo=FALSE}
 pdf.options(encoding='ISOLatin2')
 ```
@@ -25,11 +28,10 @@ rm(list = ls())
 
 * See github proj description
 
-# set proper pdf encoding
-```{r, echo=FALSE}
-pdf.options(encoding='ISOLatin2')
-```
 
+# intall/ load needed packages
+install.packages("igraph")
+library(igraph)
 
 # read data - manual upload
 ```{r}
@@ -40,9 +42,7 @@ SME_analysis <- data.frame(SMEnetw$SMEstart, SMEnetw$SMEend, SMEnetw$ContactFreq
 SMEnetwork <- graph.data.frame(SME_analysis, directed = T)
 ```
 
-# intall/ load needed packages
-install.packages("igraph")
-library(igraph)
+
 
 E(SMEnetwork)
 
@@ -56,9 +56,9 @@ hist(V(SMEnetwork)$ContactFrequency, breaks = 25, prob = T,
      xlab = 'Number')
 ```
 
-
+# basic plot
 ```{r}
-set.seed(75)
+set.seed(85)
 plot(SMEnetwork)
 ```
 ```{r}
@@ -68,3 +68,140 @@ plot(SMEnetwork,
      edge.arrow.size = 0.5,
      layout=layout.fruchterman.reingold)
 ```
+
+
+
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.fruchterman.reingold)
+
+
+
+
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.graphopt)
+
+# outliers
+```{r}
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.kamada.kawai)
+```
+
+
+# next basic view
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.sphere)
+
+# circle
+```{r}
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.circle)
+```
+
+
+```{r}
+#who seems to be the boss?
+plot(SMEnetwork,
+     vertex.color = rainbow(56),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.star)
+```
+
+# with thsi date does not provide additional value
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.grid.3d)
+
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     # vertex.size = V(SMEnetwork)$degree*0.4,
+     edge.arrow.size = 0.1,
+     layout=layout.lgl)
+
+```{r}
+par(mfrow=c(2,2))
+par(mar=c(0.25,0.25,0.1,0.1))
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     edge.arrow.size = 0.1,
+     main="Iter1",
+     font.main=1,
+     layout=layout.graphopt)
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     edge.arrow.size = 0.1,
+     main="Iter2",
+     font.main=1,
+     layout=layout.kamada.kawai)
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     edge.arrow.size = 0.1,
+     main="Iter3",
+     font.main=1,
+     layout=layout.sphere)
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     edge.arrow.size = 0.1,
+     main="Iter4",
+     font.main=1,
+     #xlab = 'iter4',
+     layout=layout.circle)
+```
+
+
+
+``` {r}
+plot(SMEnetwork,
+     vertex.color = rainbow(53),
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     edge.arrow.size = 0.1,
+     main="Iter1",
+     font.main=1,
+     layout=layout.graphopt)
+```
+
+
+
+# new package
+install.packages("multinet")
+library(multinet)
+
+ls("package:multinet") # lost out package all functions
+
+layout_multiforce_ml(SMEnetwork, w_in = 1, w_inter = 1, gravity = 0, iterations = 100)
+layout_circular_ml(SMEnetwork)
+plot(SMEnetwork)
+
+# Community detection, utlines grahically  community areas
+
+```{r}
+plot(cnet,
+     SMEnetwork,
+     vertex.size = 13,
+     vertex.label.cex = 0.9,
+     edge.arrow.size=0.1,
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.2,
+     layout=layout.graphopt)
+```    
+
