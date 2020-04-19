@@ -35,9 +35,9 @@ library(igraph)
 
 # read data - manual upload
 ```{r}
-SMEnetw <- read.csv(file.choose(), header = T, sep = ";")
+SMEnetw <- read.csv(file.choose(), header = T, sep = ";", fileEncoding="UTF-8-BOM")
 str(SMEnetw)
-fix(SMEnetw)
+#fix(SMEnetw)
 SME_analysis <- data.frame(SMEnetw$SMEstart, SMEnetw$SMEend, SMEnetw$ContactFrequency)
 SMEnetwork <- graph.data.frame(SME_analysis, directed = T)
 ```
@@ -204,4 +204,3 @@ plot(cnet,
      vertex.size = V(SMEnetwork)$ContactFrequency*0.2,
      layout=layout.graphopt)
 ```    
-
