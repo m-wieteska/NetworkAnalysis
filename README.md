@@ -71,20 +71,6 @@ plot(SMEnetwork,
 
 
 
-plot(SMEnetwork,
-     vertex.color = rainbow(53),
-     # vertex.size = V(SMEnetwork)$degree*0.4,
-     edge.arrow.size = 0.1,
-     layout=layout.fruchterman.reingold)
-
-
-
-
-plot(SMEnetwork,
-     vertex.color = rainbow(53),
-     # vertex.size = V(SMEnetwork)$degree*0.4,
-     edge.arrow.size = 0.1,
-     layout=layout.graphopt)
 
 # outliers
 ```{r}
@@ -112,9 +98,8 @@ plot(SMEnetwork,
      layout=layout.circle)
 ```
 
-
-```{r}
 #who seems to be the boss?
+```{r}
 plot(SMEnetwork,
      vertex.color = rainbow(56),
      # vertex.size = V(SMEnetwork)$degree*0.4,
@@ -122,18 +107,7 @@ plot(SMEnetwork,
      layout=layout.star)
 ```
 
-# with thsi date does not provide additional value
-plot(SMEnetwork,
-     vertex.color = rainbow(53),
-     # vertex.size = V(SMEnetwork)$degree*0.4,
-     edge.arrow.size = 0.1,
-     layout=layout.grid.3d)
-
-plot(SMEnetwork,
-     vertex.color = rainbow(53),
-     # vertex.size = V(SMEnetwork)$degree*0.4,
-     edge.arrow.size = 0.1,
-     layout=layout.lgl)
+# connect key plots
 
 ```{r}
 par(mfrow=c(2,2))
@@ -171,16 +145,6 @@ plot(SMEnetwork,
 
 
 
-``` {r}
-plot(SMEnetwork,
-     vertex.color = rainbow(53),
-     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
-     edge.arrow.size = 0.1,
-     main="Iter1",
-     font.main=1,
-     layout=layout.graphopt)
-```
-
 
 
 # new package
@@ -204,3 +168,16 @@ plot(cnet,
      vertex.size = V(SMEnetwork)$ContactFrequency*0.2,
      layout=layout.graphopt)
 ```    
+
+
+``` {r}
+plot(cnet,
+     SMEnetwork,
+     vertex.color = rainbow(53),
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     edge.arrow.size = 0.1,
+     main="Iter1",
+     font.main=1,
+     layout=layout.kamada.kawai)
+```
+
