@@ -8,10 +8,12 @@
 
 # R code # 
 ---
-title: "Netwok Analysis with R"  >>>> in progress
+title: "Netwok Analysis with R - in progres "
 author: "Wieteska, Michal"
 output:
   pdf_document: default
+  html_notebook: default
+  html_document: default
 ---
 # set proper pdf encoding
 ```{r, echo=FALSE}
@@ -35,12 +37,9 @@ SMEnetw <- read.csv(file.choose(), header = T, sep = ";", fileEncoding="UTF-8-BO
 str(SMEnetw)
 #fix(SMEnetw)
 SME_analysis <- data.frame(SMEnetw$SMEstart, SMEnetw$SMEend, SMEnetw$ContactFrequency)
-SMEnetwork <- graph.data.frame(SME_analysis, directed = T)
+SMEnetwork <- graph.data.frame(SMEnetw, directed = TRUE)
 ```
 
-
-
-E(SMEnetwork)
 
 # see contact frequency
 ```{r}
@@ -186,8 +185,8 @@ plot(cnet,
 ```
 
 ```{r}
-par(mfrow=c(2,1))
-par(mar=c(0.15,0.15,0.5,0.5))
+par(mfrow=c(1,2))
+par(mar=c(0.1,0.1,0.75,0.75))
 
 par(bg="lightblue") # set background
 
@@ -195,11 +194,11 @@ ceb <- cluster_edge_betweenness(SMEnetwork)
 dendPlot(ceb, mode="hclust")     # plot(hcd, type = "triangle", ylab = "Height")
 
 
-
 SMEnetwork1 <- igraph::as_data_frame(SMEnetwork) 
 SMEnetwork2 <- graph.data.frame(SMEnetwork1, directed = F)
 cnet <- cluster_edge_betweenness(SMEnetwork2)
 
+library(igraph)
 plot(cnet,
      SMEnetwork,
      vertex.size = 13,
