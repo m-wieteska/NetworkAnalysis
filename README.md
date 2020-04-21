@@ -6,7 +6,7 @@
 * status in progress *
 * second data set collected
 
-# R code # 
+# R code # v4
 ---
 title: "Netwok Analysis with R - in progres "
 author: "Wieteska, Michal"
@@ -37,7 +37,8 @@ SMEnetw <- read.csv(file.choose(), header = T, sep = ";", fileEncoding="UTF-8-BO
 str(SMEnetw)
 #fix(SMEnetw)
 SME_analysis <- data.frame(SMEnetw$SMEstart, SMEnetw$SMEend, SMEnetw$ContactFrequency)
-SMEnetwork <- graph.data.frame(SMEnetw, directed = TRUE)
+library(igraph)
+SMEnetwork <- graph.data.frame(SME_analysis, directed = TRUE)
 ```
 
 
@@ -71,7 +72,7 @@ plot(SMEnetwork,
 ```
 
 
-# sphere view
+# spherical view
 ```{r}
 plot(SMEnetwork,
      vertex.color = rainbow(53),
@@ -208,3 +209,4 @@ plot(cnet,
      layout=layout.graphopt)
 
 ```     
+# comments: 6 outliers identified for dendrogram (outside green box) and wetwork diagram (outside red area)
