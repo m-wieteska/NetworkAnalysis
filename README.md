@@ -24,28 +24,28 @@ A network is simply a number of nodes that are connected by links. These nodes a
 
 # Starting wit RStudio
 
-# set proper pdf encoding
+# Set proper pdf encoding
 ```{r, echo=FALSE}
 pdf.options(encoding='ISOLatin2')
 ```
 
-# remove all lists
+# Remove all lists
 ```{r}
 ls()
 rm(list = ls())
 ```
 
 
-# install
+# Install
 install.packages("igraph")
 
-# load needed packages
+# Load needed packages
 ```{r}
 library(igraph)
 ```
 
 
-# read data - manual file location/ selection
+# Read data - manual file location/ selection
 ```{r}
 SMEnetw <- read.csv(file.choose(), header = T, sep = ";", fileEncoding="UTF-8-BOM")
 SME_analysis <- data.frame(SMEnetw$SMEstart, SMEnetw$SMEend, SMEnetw$ContactFrequency)
@@ -70,7 +70,7 @@ SMEnetwork <- graph.data.frame(SME_analysis, directed = TRUE)
    * see a network diameter: diameter(SMEnetwork, directed=F, weigths=NA)
 
 
-# imported data view to understand data structure
+# Imported data view to understand data structure
 ```{r}
 str(SMEnetw)
 head(SMEnetwork)
@@ -89,7 +89,7 @@ SMEnetwork_nl <- simplify(SMEnetwork, remove.multiple = T, remove.loops = T)
 plot(SMEnetwork_nl, edge.arrow.size=.4) # no loops
 ```
 
-# modified basic plot
+# Modified basic plot
 ```{r}
 
 V(SMEnetwork)$ContactFrequency <- degree(SMEnetwork)
@@ -259,8 +259,7 @@ par(mfrow=c(1,2))
 
 ```
 
-
-
+# Zoom
 ```{r}
 par(mfrow=c(1,2), mar=c(0,0,0,0))
 
@@ -276,7 +275,14 @@ plot(SMEnetwork, vertex.shape="sphere", vertex.color = rainbow(53), vertex.size=
 
 ```
 
-# degree analysis degree = number of connections
+# Additional analysis (degree etc.)
+
+```{r}
+degree(SMEnetwork)
+reciprocity(SMEnetwork)   
+closeness(SMEnetwork, mode='all', weights = NA)
+betweenness(SMEnetwork, directed=TRUE, weights = NA)
+```
 
 
 * Appendix - Additional view 
