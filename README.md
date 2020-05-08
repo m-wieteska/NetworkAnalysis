@@ -1,5 +1,5 @@
 # NetworkAnalysis
-# Project Description: use network analysis capabilities in R to understand/ discover how originally defined group of subject matter experts (SMEs) is performing (interacting). 
+# Project Description: use network analysis capabilities in R to understand/ discover how a defined group of subject matter experts (SMEs) is performing (interacting). 
 
 * status in progress *
 
