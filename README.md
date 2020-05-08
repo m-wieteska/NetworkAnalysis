@@ -1,14 +1,11 @@
 # NetworkAnalysis
-# Project Description: use network analysis capabilities in R to understand/ discover how originally defined group of subject matter experts (SMEs) is performing. For that purpose gathered were two datasets: 1st) 1 month after the group was set up, 2nd) 4 months from the set up date. Data represents emails echange streams within SME groups and between indivuduals external to the SMEs group. Data visualization (network) was used to present changes that happened to the originally defined group. 
-
-# Data use: there will be two data sets to compare
+# Project Description: use network analysis capabilities in R to understand/ discover how originally defined group of subject matter experts (SMEs) is performing (interacting). 
 
 * status in progress *
-* second data set collected
 
 # R code # v4
 ---
-title: "Social Network Analysis for Project SMEs using with RStudio. Version 3 (work in progres)"
+title: "Social Network Analysis for Project SMEs using with RStudio. (work in progres)"
 author: "Wieteska, Michal"
 output:
   pdf_document: default
@@ -22,9 +19,9 @@ A network is simply a number of nodes that are connected by links. These nodes a
 * A general concept: see wikipedia: https://en.wikipedia.org/wiki/Social_network_analysis 
 * for key therms explanation see wikipedia https://en.wikipedia.org/wiki/Vertex_(graph_theory)
 
-# Starting wit RStudio
+# Starting with RStudio
 
-# Set proper pdf encoding
+# Proper pdf encoding
 ```{r, echo=FALSE}
 pdf.options(encoding='ISOLatin2')
 ```
@@ -144,7 +141,7 @@ plot(SMEnetwork,
      layout=layout.kamada.kawai)
 plot(SMEnetwork,
      vertex.color = rainbow(53),
-     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.6,
      edge.arrow.size = 0.1,
      main="Sphere",
      cex.main=0.5,
@@ -152,14 +149,14 @@ plot(SMEnetwork,
      layout=layout.sphere)
 plot(SMEnetwork,
      vertex.color = rainbow(53),
-     vertex.size = V(SMEnetwork)$ContactFrequency*0.4,
+     vertex.size = V(SMEnetwork)$ContactFrequency*0.6,
      edge.arrow.size = 0.1,
      main="Circle",
      cex.main=0.5,
      font.main=1,
      layout=layout.circle)
 ```
-* Comments: visually it looks like R, S and U are actors with the most connections
+* Comments: visually it looks like D, G, R, S and U are actors with the most connections (interactions)
 
 
 # Community detection (identify, outline grahically community areas)
@@ -259,7 +256,7 @@ par(mfrow=c(1,2))
 
 ```
 
-# Zoom
+# Beter zoom
 ```{r}
 par(mfrow=c(1,2), mar=c(0,0,0,0))
 
@@ -275,8 +272,7 @@ plot(SMEnetwork, vertex.shape="sphere", vertex.color = rainbow(53), vertex.size=
 
 ```
 
-# Additional analysis (degree etc.)
-
+# Additional analysis
 ```{r}
 degree(SMEnetwork)
 reciprocity(SMEnetwork)   
@@ -287,7 +283,7 @@ betweenness(SMEnetwork, directed=TRUE, weights = NA)
 
 * Appendix - Additional view 
 
-# clustering
+## Clustering
 ```{r}
 par(mfrow=c(1,2))
 par(mar=c(0.1,0.1,0.75,0.75))
@@ -310,13 +306,13 @@ modularity(c3)
 plot_shaded_view <- plot(c3, SMEnetwork, edge.arrow.size = 0.25, layout=coords); plot_shaded_view
 
 ```     
-# comments: 6 outliers identified for dendrogram (outside green box) and network diagram (outside red area)
+* comments: 6 outliers identified for dendrogram (outside green box) and network diagram (outside red area)
 
-# additional analysis - do some some zoom for details
+## Additional network views
 
 * Other views
 
-# spherical view
+### Spherical view
 ```{r}
 plot(SMEnetwork,
      vertex.color = rainbow(53),
@@ -326,7 +322,7 @@ plot(SMEnetwork,
 ```
 
 
-# circle
+### Circle view
 ```{r}
 plot(SMEnetwork,
      vertex.color = rainbow(53),
@@ -335,7 +331,7 @@ plot(SMEnetwork,
      layout=layout.circle)
 ```
 
-#star
+### Star view
 ```{r}
 plot(SMEnetwork,
      vertex.color = rainbow(56),
