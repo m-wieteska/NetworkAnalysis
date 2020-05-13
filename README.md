@@ -3,9 +3,9 @@
 
 * status in progress *
 
-# R code # v4
+# R code #
 ---
-title: "Social Network Analysis for Project SMEs using with RStudio. (work in progres)"
+title: "Social Network Analysis for Project SMEs with RStudio. (work in progres)"
 author: "Wieteska, Michal"
 output:
   pdf_document: default
@@ -13,11 +13,12 @@ output:
   html_document: default
 ---
 
-* The of this project is an analysis of SMEs (Subject Matter Experts) invited to the project to provide specialty expertise with regards to ptoejct scope/ deliverabled. The approach take here isusing  "social network analysis" concept (see wikipedia link below) with the aim to understand a community by mapping the relationships. These relationships connect them as a network, and then trying to draw out key individuals, groups within the network, associations between the individuals, outline connections intensivity etc.
+* The of this project is an analysis of SMEs (Subject Matter Experts) invited to the project to provide specialty expertise with regards to project scope/ deliverables. The approach take here isusing  "social network analysis" concept (see wikipedia link below) with the aim to understand a community by mapping the relationships. These relationships connect them as a network, and then trying to draw out key individuals, groups within the network, associations between the individuals, outline connections intensivity etc.
 A network is simply a number of nodes that are connected by links. These nodes are people (here SMEs) and the links are any social connection between them; here based on interaction justified by working on the same project/ theme.
 
 * A general concept: see wikipedia: https://en.wikipedia.org/wiki/Social_network_analysis 
-* for key therms explanation see wikipedia https://en.wikipedia.org/wiki/Vertex_(graph_theory)
+   * for key therms explanation see wikipedia https://en.wikipedia.org/wiki/Vertex_(graph_theory)
+   * for a specific concepts see: https://en.wikipedia.org/wiki/HITS_algorithm
 
 # Starting with RStudio
 
@@ -60,6 +61,9 @@ SMEnetwork <- graph.data.frame(SME_analysis, directed = TRUE)
 * Betweennes - a Unique links to others in the network i.e. who gets most connections, example: betweenness(SMEnetwork, directed=TRUE, weights = NA)
 * Degree - Connected to many individuals, number of connections: degree(SMEnetwork)
 * Matrix  - contingency table: SMEnetwork[]
+* Authority/ authority - an authority SME to be someone who is followed by many other hub SMEs, while a hub SME to be one who follows many authority SMEs 
+   * Hubs (outbound links)
+   * Authorities (inutbound links) 
 * See number of 
    * all connections: degree(SMEnetwork, mode='all')
    * incoming connections: degree(SMEnetwork, mode='in')
@@ -67,13 +71,15 @@ SMEnetwork <- graph.data.frame(SME_analysis, directed = TRUE)
    * see a network diameter: diameter(SMEnetwork, directed=F, weigths=NA)
 
 
-# Imported data view to understand data structure
+# Imported data view/ examination to understand data structure
 ```{r}
 str(SMEnetw)
 head(SMEnetwork)
 tail(SMEnetwork)
 degree(SMEnetwork)
 SMEnetwork[]
+nrow(SMEnetw)
+length(unique(SMEnetwork$SMEstart))
 ```
 
 
@@ -244,8 +250,6 @@ hs <- hub_score(SMEnetwork, weights=NA)$vector
 
 as <- authority_score(SMEnetwork, weights=NA)$vector
 
-
-
 par(mfrow=c(1,2))
 
  plot(SMEnetwork, vertex.size=hs*25, main="Hubs", edge.arrow.size = 0.2)
@@ -256,7 +260,8 @@ par(mfrow=c(1,2))
 
 ```
 
-# Beter zoom
+
+# Better zoom
 ```{r}
 par(mfrow=c(1,2), mar=c(0,0,0,0))
 
